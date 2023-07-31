@@ -1,0 +1,13 @@
+.box {
+  position: relative;
+  background: #F9F9F9;
+  height: 100vh;
+}
+.bottomBar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 166px;
+  background:  linear-gradient(180deg, #FFE587 0%, #F6CF44 18.45%);
+}
