@@ -1,4 +1,4 @@
-import './globals.css'
+import './style/globals.css'
 import './style/fonts.css'
 
 import type { Metadata } from 'next'

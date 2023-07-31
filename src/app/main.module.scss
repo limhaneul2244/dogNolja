@@ -1,6 +1,21 @@
-.box {
+.contentWrap {
+  max-width: 900px;
+  width: 100%;
+  margin: auto;
+}
+.header {
+  height: 85px;
+  background: red;
+}
+.logo {
+  color: #F6CF44;
+  font-family: 'Noto SansR';
+  font-size: 28px;
+  font-weight: 700;
+}
+.mainWrap {
   position: relative;
-  background: #F9F9F9;
+  // background: #F9F9F9;
   height: 100vh;
 }
 .bottomBar {
@@ -11,3 +26,4 @@
   height: 166px;
   background:  linear-gradient(180deg, #FFE587 0%, #F6CF44 18.45%);
 }
+
