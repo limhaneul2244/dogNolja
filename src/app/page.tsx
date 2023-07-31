@@ -10,7 +10,7 @@ export default function Home() {
       </header>
       <div className={css.mainWrap}>
         <main>
-          <h2>반려동물 케어의 모든것</h2>
+          <h2 className="text-3xl font-bold underline">반려동물 케어의 모든것</h2>
           <h3>우리 아이에게 꼭 맞는 케어 서비스를 이용해 보세요</h3>
           <article>
             
