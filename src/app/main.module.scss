@@ -3,21 +3,33 @@
   width: 100%;
   margin: auto;
 }
-.header {
-  height: 85px;
-  background: red;
-}
-.logo {
-  color: #F6CF44;
-  font-family: 'Noto SansR';
-  font-size: 28px;
-  font-weight: 700;
-}
 .mainWrap {
   position: relative;
   // background: #F9F9F9;
   height: 100vh;
 }
+.main {
+  position: absolute;
+  top: 0;
+  left: 259px;
+  width: 900px;
+}
+.header {
+  height: 85px;
+
+  .roundedBtn {
+    padding: 5px 10px;
+    color: #FFF;
+    font-size: 12px;
+    font-weight: 500;
+  }
+}
+.logo {
+  color: #F6CF44;
+  font-size: 28px;
+  font-weight: 700;
+}
+
 .bottomBar {
   position: absolute;
   left: 0;
@@ -27,3 +39,8 @@
   background:  linear-gradient(180deg, #FFE587 0%, #F6CF44 18.45%);
 }
 
+// 공통 라운드 버튼
+.roundedBtn {
+  border-radius: 15.5px;
+  background: #F6CF44;
+}

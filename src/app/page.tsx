@@ -4,15 +4,17 @@ import css from './main.module.scss';
 export default function Home() {
   return(
     <>
-      <header className={classNames(css.contentWrap, css.header)}>
-        <h1 className={css.logo}>PET LOGO</h1>
-        <button type="button">LOGIN</button>
-      </header>
       <div className={css.mainWrap}>
-        <main>
-          <h2 className="text-3xl font-bold underline">반려동물 케어의 모든것</h2>
-          <h3>우리 아이에게 꼭 맞는 케어 서비스를 이용해 보세요</h3>
-          <article>
+        <main className={css.main}>
+          <header className={classNames(css.header, "flex", "items-center", "justify-between")}>
+            <h1 className={css.logo}>PET LOGO</h1>
+            <button className={css.roundedBtn} type="button">LOGIN</button>
+          </header>
+          <article className={css.introHeader}>
+            <h2 className="text-3xl font-bold underline">반려동물 케어의 모든것</h2>
+            <h3>우리 아이에게 꼭 맞는 케어 서비스를 이용해 보세요</h3>
+          </article>
+          <article className={css.introBody}>
             
           </article>
         </main>
