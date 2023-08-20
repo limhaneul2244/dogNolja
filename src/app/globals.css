@@ -5,6 +5,7 @@
 :root {
   --color01: #222;
   --color02: #E6E6E6;
+  --mainColor : #F6CF44;
 }
 
 /*
@@ -63,6 +64,10 @@ textarea {
   box-sizing: border-box;
 }
 
+input {
+  box-sizing: border-box;
+}
+
 input, button {
 	font: inherit;
 }
@@ -97,4 +102,3 @@ img {
   aspect-ratio: 2/1;
   object-fit: cover;
 }
-

@@ -1,3 +1,9 @@
+// 공통 라운드 버튼
+@mixin roundedBtn {
+  border-radius: 15.5px;
+  background: #F6CF44;
+}
+
 //size
 @mixin size ($w, $h) {
   width: $w;
@@ -5,9 +11,15 @@
 }
 
 //border
-@mixin border($size, $color, $position) {
+@mixin borderSolid($size, $color, $position) {
   #{border}-#{$position}: $size solid $color;
 }
+
+//border-radius
+@mixin br($num) {
+  border-radius: #{$num}px;
+}
+
 
 //위치값 포함 position
 @mixin positionLocation ($position, $t, $rgt, $btm, $ltf) {
@@ -68,7 +80,6 @@
   display: -webkit-box;
   -webkit-line-clamp: $clamp;
 }
-
 
 //scroll custom
 @mixin scroll {

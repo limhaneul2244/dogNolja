@@ -1,3 +1,5 @@
+@import './style/util.scss';
+
 .contentWrap {
   max-width: 900px;
   width: 100%;
@@ -5,42 +7,74 @@
 }
 .mainWrap {
   position: relative;
-  // background: #F9F9F9;
   height: 100vh;
+  background: #F9F9F9;
 }
 .main {
-  position: absolute;
-  top: 0;
-  left: 259px;
-  width: 900px;
+  z-index: 10;
+  @include positionLocation(absolute, 0, null, null, 259px);
+  max-width: 900px;
+  width: 100%;
 }
+
 .header {
   height: 85px;
 
   .roundedBtn {
+    @include roundedBtn;
     padding: 5px 10px;
-    color: #FFF;
-    font-size: 12px;
-    font-weight: 500;
+    @include font(.75rem, #FFF, 500);
   }
 }
+
+.introHeader {
+  >img {
+    display: inline-block;
+    margin: auto;
+  }
+  padding: 46px 50px 42px;
+  @include br(6);
+  border: 1px solid #EBEBEB;
+  background: #FFF;
+}
+
 .logo {
-  color: #F6CF44;
+  color: var(--mainColor);
   font-size: 28px;
   font-weight: 700;
 }
 
-.bottomBar {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 166px;
-  background:  linear-gradient(180deg, #FFE587 0%, #F6CF44 18.45%);
+
+/***************************
+*introBody
+****************************/
+.introBody {
+  @include br(6);
+  background: #FFFCF4;
+  padding: 75px;
+  .fieldset {
+    margin-bottom: 41px;
+  }
+  .label {
+    @include font(1.375rem, #222, 400);
+    margin-right: 50px;
+  }
+  .inputArea {
+    @include size(100%, 52px);
+    border: 1px solid #E6E6E6;
+    @include br(6);
+    padding-left: 19px;
+    &::placeholder {
+      @include font(1rem, #222, 400);
+    }
+  }
 }
 
-// 공통 라운드 버튼
-.roundedBtn {
-  border-radius: 15.5px;
-  background: #F6CF44;
+/***************************
+*footer
+****************************/
+.bottomBar {
+  @include positionLocation(absolute, null, null, 0, 0);
+  @include size(100%, 166px);
+  background:  linear-gradient(180deg, #FFE587 0%, var(--mainColor) 18.45%);
 }
