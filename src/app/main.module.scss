@@ -12,7 +12,8 @@
 }
 .main {
   z-index: 10;
-  @include positionLocation(absolute, 0, null, null, 259px);
+  //left(259px)
+  @include positionLocation(absolute, 0, null, null, 13.4895833vw);
   max-width: 900px;
   width: 100%;
 }
@@ -27,6 +28,10 @@
   }
 }
 
+//==========================
+//introBody
+//==========================
+
 .introHeader {
   >img {
     display: inline-block;
@@ -36,6 +41,7 @@
   @include br(6);
   border: 1px solid #EBEBEB;
   background: #FFF;
+  box-sizing: border-box;
 }
 
 .logo {
@@ -44,37 +50,89 @@
   font-weight: 700;
 }
 
+//==========================
+//introBody
+//==========================
 
-/***************************
-*introBody
-****************************/
+//mixin 체크박스 체크 유무에 따른 변경
+@mixin checkBoxStatus($checked) {
+  content: '';
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  background-size: contain;
+  @if $checked {
+    background: url($img-path+'chked.png') no-repeat center;
+  } @else {
+    background: url($img-path+'unChked.png') no-repeat center;
+  }
+}
+
 .introBody {
   @include br(6);
   background: #FFFCF4;
   padding: 75px;
+  box-sizing: border-box;
   .fieldset {
     margin-bottom: 41px;
   }
-  .label {
+  .labelTxt {
+    width: 90px;
+    text-align: left;
     @include font(1.375rem, #222, 400);
-    margin-right: 50px;
   }
   .inputArea {
-    @include size(100%, 52px);
+    @include formSize(100%, 50px, 6);
     border: 1px solid #E6E6E6;
-    @include br(6);
     padding-left: 19px;
     &::placeholder {
       @include font(1rem, #222, 400);
     }
   }
+
+  //체크박스
+  input[type="checkbox"] + label {
+    display: flex;
+    align-items: center;
+    margin-right: 50px;
+    &:before {
+      margin-right: 10px;
+      @include checkBoxStatus(false);
+    }
+  }
+
+  input:checked+label:before {
+    @include checkBoxStatus(true);
+  }
+
+  .fieldset {
+    select {
+      position: relative;
+      @include formSize(100%, 50px, 6);
+      border: 1px solid #E6E6E6;
+      padding-left: 19px;
+      box-sizing: border-box;
+    }
+  }
 }
 
-/***************************
-*footer
-****************************/
+//==========================
+//footer
+//==========================
+
 .bottomBar {
   @include positionLocation(absolute, null, null, 0, 0);
   @include size(100%, 166px);
   background:  linear-gradient(180deg, #FFE587 0%, var(--mainColor) 18.45%);
+}
+
+.dogImg {
+  position: absolute;
+  bottom: 20px;
+  right: 6.510416vw;
+
+  img {
+    display: block;
+    width: 546px;
+  }
 }

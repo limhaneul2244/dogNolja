@@ -78,6 +78,13 @@ button {
 	background: none;
 }
 
+select {
+  -webkit-appearance: none;/*chrome/safari*/
+  -moz-appearance: none;/*firefox*/
+  appearance: none;
+  box-sizing: border-box;
+}
+
 img {
   vertical-align: top;
 }
