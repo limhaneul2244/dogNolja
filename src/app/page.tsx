@@ -1,6 +1,44 @@
+"use client"
 import Image from "next/image";
 import classNames from "classnames";
 import css from "./main.module.scss";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+import { ThemeProvider, createTheme } from "@mui/material";
+
+//material-UI사용자테마 설정
+const theme = createTheme({
+  palette : {
+    primary: {
+      main: '#222',
+    },
+  }
+})
+
+
+interface DatePickerProps {
+  labelStart: string,
+  labelEnd: string
+}
+
+function BasicDatePicker({labelStart, labelEnd}:DatePickerProps) {
+  return (
+    <ThemeProvider theme={theme}>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DatePicker className={css.datePicker} label={labelStart} defaultValue={dayjs('2023-04-17')} />
+        <DatePicker
+          className={css.datePicker}
+          label={labelEnd}
+          defaultValue={dayjs('2023-04-17')}
+          // value={value}
+          // onChange={(newValue) => setValue(newValue)}
+        />
+      </LocalizationProvider>
+    </ThemeProvider>
+  )
+}
 
 
 export default function Home() {
@@ -38,6 +76,7 @@ export default function Home() {
                 <fieldset className={classNames(css.fieldset, "flex", "items-center")}>
                   <legend className="a11yHidden">날짜 입력</legend>
                   <label htmlFor="date" className={classNames(css.labelTxt, "flex-none")}>날짜</label>
+                  <BasicDatePicker labelStart={'시작날짜'} labelEnd={'종료날짜'} />
                 </fieldset>
 
                 <fieldset className={classNames(css.fieldset, "flex", "items-center")}>
