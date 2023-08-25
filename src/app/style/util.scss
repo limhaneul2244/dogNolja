@@ -1,12 +1,6 @@
 
 $img-path: '../../public/imgs/';
 
-// 공통 라운드 버튼
-@mixin roundedBtn {
-  border-radius: 15.5px;
-  background: #F6CF44;
-}
-
 //size
 @mixin size ($w, $h) {
   width: $w;
@@ -113,4 +107,17 @@ $img-path: '../../public/imgs/';
   width: $w;
   height: $h;
   border-radius: #{$num}px;
+}
+
+//버튼 타입 (white, yellow)
+//basic, yellow
+@mixin buttonType ($type) {
+  @if $type == 'basic' {
+    border-radius: 50px;
+    border: 1px solid #222;
+    color: #222;
+  } @else if $type == 'yellow' {
+    background: #F6CF44;
+    color: #fff;
+  }
 }

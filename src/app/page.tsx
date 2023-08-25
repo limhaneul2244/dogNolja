@@ -1,44 +1,91 @@
 "use client"
+import * as React from 'react';
+import { useState } from 'react';
 import Image from "next/image";
 import classNames from "classnames";
 import css from "./main.module.scss";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import dayjs from 'dayjs';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import dayjs, { Dayjs } from 'dayjs';
 import { ThemeProvider, createTheme } from "@mui/material";
 
 //material-UI사용자테마 설정
 const theme = createTheme({
-  palette : {
+  //컴포넌트 컬러
+  components: {
+    MuiFormLabel: {
+      styleOverrides: {
+        root: {
+          color: '#222',
+        },
+      },
+    }
+  },
+  //기본 컬러, 포커싱됐을때의 색상 정의
+  palette: {
     primary: {
       main: '#222',
     },
-  }
-})
+  },
+  //font 정의
+  typography: {
+    fontSize: 16,
+  },
+});
 
-
+/**
+ * datePicker
+ */
 interface DatePickerProps {
-  labelStart: string,
-  labelEnd: string
+  labelStart: string;
+  labelEnd: string;
+  value: Dayjs;
+  defaultStateDate: Dayjs;
+  defaultEndDate: Dayjs;
 }
 
-function BasicDatePicker({labelStart, labelEnd}:DatePickerProps) {
+function BasicDatePicker({labelStart, labelEnd, defaultStateDate, defaultEndDate}:DatePickerProps) {
+  const [value, setValue] = useState<Dayjs | null>(dayjs());
   return (
     <ThemeProvider theme={theme}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DatePicker className={css.datePicker} label={labelStart} defaultValue={dayjs('2023-04-17')} />
+        <DatePicker className={css.datePicker} label={labelStart} defaultValue={defaultStateDate} />
         <DatePicker
           className={css.datePicker}
           label={labelEnd}
-          defaultValue={dayjs('2023-04-17')}
-          // value={value}
-          // onChange={(newValue) => setValue(newValue)}
+          // defaultValue={defaultStateDate}
+          value={value}
+          onChange={(newValue) => setValue(newValue)}
         />
       </LocalizationProvider>
     </ThemeProvider>
   )
 }
+
+/**
+ * TimePicker
+ */
+interface TimePickerProps {
+  timeLabelStart: string;
+}
+
+function TimeDatePicker({timeLabelStart}: TimePickerProps) {
+  const [timeValue, setTimeValue] = useState<Dayjs | null>(dayjs());
+  return(
+    <ThemeProvider theme={theme}>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <TimePicker
+          className={css.datePicker}
+          label={timeLabelStart}
+          defaultValue={dayjs('2022-04-17T15:30')}
+        />
+      </LocalizationProvider>
+    </ThemeProvider>
+  )
+}
+
 
 
 export default function Home() {
@@ -75,8 +122,17 @@ export default function Home() {
 
                 <fieldset className={classNames(css.fieldset, "flex", "items-center")}>
                   <legend className="a11yHidden">날짜 입력</legend>
-                  <label htmlFor="date" className={classNames(css.labelTxt, "flex-none")}>날짜</label>
-                  <BasicDatePicker labelStart={'시작날짜'} labelEnd={'종료날짜'} />
+                  <label htmlFor="date" className={classNames(css.labelTxt, "flex-none")}>예약</label>
+                  <BasicDatePicker
+                    labelStart={'시작날짜'}
+                    labelEnd={'종료날짜'}
+                    defaultStateDate={dayjs()}
+                    defaultEndDate={dayjs()}
+                    value={dayjs()}
+                  />
+                  <TimeDatePicker
+                    timeLabelStart={'예약시간'}
+                  />
                 </fieldset>
 
                 <fieldset className={classNames(css.fieldset, "flex", "items-center")}>
@@ -124,7 +180,7 @@ export default function Home() {
                 </fieldset>
               </form>
             </div>
-            <button type="button">검색</button>
+            <button type="button" className={css.searchBtn}>검색</button>
           </article>
         </main>
 

@@ -22,9 +22,10 @@
   height: 85px;
 
   .roundedBtn {
-    @include roundedBtn;
-    padding: 5px 10px;
+    @include buttonType('yellow');
     @include font(.75rem, #FFF, 500);
+    border-radius: 15.5px;
+    padding: 5px 10px;
   }
 }
 
@@ -72,9 +73,13 @@
   @include br(6);
   background: #FFFCF4;
   padding: 75px;
+  margin-bottom: 40px;
   box-sizing: border-box;
   .fieldset {
     margin-bottom: 41px;
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
   .labelTxt {
     width: 90px;
@@ -116,6 +121,11 @@
   }
 }
 
+.searchBtn {
+  @include buttonType('basic');
+  padding: 16px 58px;
+}
+
 //==========================
 //footer
 //==========================
@@ -139,4 +149,8 @@
 
 .datePicker {
   background-color: #fff;
+  margin-right: 10px;
+  &:last-child {
+    margin-right: 0;
+  }
 }
