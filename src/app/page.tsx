@@ -1,14 +1,15 @@
-"use client"
-import * as React from 'react';
-import { useState } from 'react';
+"use client";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import classNames from "classnames";
 import css from "./main.module.scss";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import dayjs, { Dayjs } from 'dayjs';
+
+//mui
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import dayjs, { Dayjs } from "dayjs";
 import { ThemeProvider, createTheme } from "@mui/material";
 
 //material-UI사용자테마 설정
@@ -18,20 +19,20 @@ const theme = createTheme({
     MuiFormLabel: {
       styleOverrides: {
         root: {
-          color: '#222',
+          color: "#222",
         },
       },
-    }
+    },
   },
   //기본 컬러, 포커싱됐을때의 색상 정의
   palette: {
     primary: {
-      main: '#222',
+      main: "#222",
     },
   },
   //font 정의
   typography: {
-    fontSize: 16,
+    fontSize: 14,
   },
 });
 
@@ -41,60 +42,85 @@ const theme = createTheme({
 interface DatePickerProps {
   labelStart: string;
   labelEnd: string;
-  value: Dayjs;
-  defaultStateDate: Dayjs;
-  defaultEndDate: Dayjs;
+  dayValue: Dayjs | null; //시작날짜
+  //dayEndValue: Dayjs | null; //종료날짜
+  setDayValue: (date: Dayjs | null) => void;
+  setDayEndValue: (date: Dayjs | null) => void;
+  minDate: Dayjs | null;
 }
 
-function BasicDatePicker({labelStart, labelEnd, defaultStateDate, defaultEndDate}:DatePickerProps) {
-  const [value, setValue] = useState<Dayjs | null>(dayjs());
+function BasicDatePicker({
+  labelStart,
+  labelEnd,
+  dayValue,
+  //dayEndValue,
+  setDayValue,
+  setDayEndValue, //종료날짜
+}: DatePickerProps) {
   return (
     <ThemeProvider theme={theme}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DatePicker className={css.datePicker} label={labelStart} defaultValue={defaultStateDate} />
         <DatePicker
+          format="YYYY/MM/DD"
+          className={css.datePicker}
+          label={labelStart}
+          // defaultValue={dayValue}
+          minDate = {dayValue}
+        />
+        <DatePicker
+          format="YYYY/MM/DD"
           className={css.datePicker}
           label={labelEnd}
-          // defaultValue={defaultStateDate}
-          value={value}
-          onChange={(newValue) => setValue(newValue)}
+          defaultValue={dayValue}
+          onChange={(dayValue) => setDayEndValue(dayValue)}
         />
       </LocalizationProvider>
     </ThemeProvider>
-  )
+  );
 }
 
 /**
  * TimePicker
  */
 interface TimePickerProps {
+  timeValue: Dayjs | null;
   timeLabelStart: string;
+  setTimeValue: (date: Dayjs | null) => void;
 }
 
-function TimeDatePicker({timeLabelStart}: TimePickerProps) {
-  const [timeValue, setTimeValue] = useState<Dayjs | null>(dayjs());
-  return(
+function TimeDatePicker({ timeValue, timeLabelStart, setTimeValue }: TimePickerProps) {
+  return (
     <ThemeProvider theme={theme}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <TimePicker
           className={css.datePicker}
           label={timeLabelStart}
-          defaultValue={dayjs('2022-04-17T15:30')}
+          defaultValue={timeValue}
         />
       </LocalizationProvider>
     </ThemeProvider>
-  )
+  );
 }
 
-
-
 export default function Home() {
+  const [dayValue, setDayValue] = useState<Dayjs | null>(null);
+  const [dayEndValue, setDayEndValue] = useState<Dayjs | null>(null);
+  const [timeValue, setTimeValue] = useState<Dayjs | null>(null);
+
+  useEffect(() => {
+    const now = dayjs();
+    setDayValue(now);
+    setDayEndValue(now);
+  }, []);
+
+  
   return (
     <>
       <div className={css.mainWrap}>
         <main className={classNames(css.main, "contentWrap")}>
           {/* header */}
-          <header className={classNames(css.header,"flex","items-center","justify-between")}>
+          <header
+            className={classNames(css.header, "flex", "items-center", "justify-between")}>
             <h1 className={css.logo}>PET LOGO</h1>
             <button className={css.roundedBtn} type="button">
               LOGIN
@@ -111,7 +137,12 @@ export default function Home() {
               <form action="e.preventDefault()">
                 <fieldset className={classNames(css.fieldset, "flex", "items-center")}>
                   <legend className="a11yHidden">지역 입력</legend>
-                  <label htmlFor="location" className={classNames(css.labelTxt, "flex-none")}>위치</label>
+                  <label
+                    htmlFor="location"
+                    className={classNames(css.labelTxt, "flex-none")}
+                  >
+                    위치
+                  </label>
                   <input
                     id="location"
                     className={css.inputArea}
@@ -122,22 +153,32 @@ export default function Home() {
 
                 <fieldset className={classNames(css.fieldset, "flex", "items-center")}>
                   <legend className="a11yHidden">날짜 입력</legend>
-                  <label htmlFor="date" className={classNames(css.labelTxt, "flex-none")}>예약</label>
+                  <label
+                    htmlFor="date"
+                    className={classNames(css.labelTxt, "flex-none")}
+                  >
+                    예약
+                  </label>
                   <BasicDatePicker
-                    labelStart={'시작날짜'}
-                    labelEnd={'종료날짜'}
-                    defaultStateDate={dayjs()}
-                    defaultEndDate={dayjs()}
-                    value={dayjs()}
+                    labelStart={"시작날짜"}
+                    labelEnd={"종료날짜"}
+                    minDate={dayValue ? dayValue.startOf('day') : null}
+                    dayValue={dayValue}
+                    setDayEndValue={setDayEndValue}
+                    setDayValue={setDayValue}
                   />
                   <TimeDatePicker
-                    timeLabelStart={'예약시간'}
+                    timeValue={timeValue}
+                    timeLabelStart={"예약시간"}
+                    setTimeValue={setTimeValue}
                   />
                 </fieldset>
 
                 <fieldset className={classNames(css.fieldset, "flex", "items-center")}>
                   <legend className="a11yHidden">서비스 체크</legend>
-                  <label className={classNames(css.labelTxt, "flex-none")}>서비스</label>
+                  <label className={classNames(css.labelTxt, "flex-none")}>
+                    서비스
+                  </label>
                   <div>
                     <input
                       className="a11yHidden"
@@ -164,11 +205,15 @@ export default function Home() {
                       id="both"
                     />
                     <label htmlFor="both">호텔링 + 놀이방</label>
-                  </div>
-                </fieldset>
+                  </div></fieldset>
 
                 <fieldset className={classNames(css.fieldset, "flex", "items-center")}>
-                  <label htmlFor="weight" className={classNames(css.labelTxt, "flex-none")}>몸무게</label>
+                  <label
+                    htmlFor="weight"
+                    className={classNames(css.labelTxt, "flex-none")}
+                  >
+                    몸무게
+                  </label>
                   <select id="weight" name="몸무게">
                     <option value="전체" selected>
                       전체
@@ -180,7 +225,9 @@ export default function Home() {
                 </fieldset>
               </form>
             </div>
-            <button type="button" className={css.searchBtn}>검색</button>
+            <button type="button" className={css.searchBtn}>
+              검색
+            </button>
           </article>
         </main>
 
@@ -188,7 +235,12 @@ export default function Home() {
           <span className="a11yHidden">하단 막대바</span>
         </div>
         <div className={css.dogImg}>
-          <Image src={'/imgs/daengdaenge.png'} width={500} height={500} alt="강아지이미지" />
+          <Image
+            src={"/imgs/daengdaenge.png"}
+            width={500}
+            height={500}
+            alt="강아지이미지"
+          />
         </div>
       </div>
     </>
