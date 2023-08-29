@@ -130,7 +130,7 @@ export default function Home() {
           {/* 검색영역란 */}
           <article className={classNames(css.introHeader, "text-center")}>
             <Image src={"/imgs/mainLogo.png"} width={60} height={60} alt="개놀자로고"/>
-            <h2 className="text-3xl font-bold mb-[7px]">반려동물 케어의 모든것</h2>
+            <h2 className="md:text-3xl text-2xl font-bold mb-[7px]">반려동물 케어의 모든것</h2>
             <h3 className="mb-[40px]">우리 아이에게 꼭 맞는 케어 서비스를 이용해 보세요</h3>
 
             <div className={css.introBody}>
@@ -179,33 +179,36 @@ export default function Home() {
                   <label className={classNames(css.labelTxt, "flex-none")}>
                     서비스
                   </label>
-                  <div>
-                    <input
-                      className="a11yHidden"
-                      type="checkbox"
-                      name=""
-                      id="hoteling"
-                    />
-                    <label htmlFor="hoteling">호텔링</label>
+                  <div className={css.serviceWrap}>
+                    <div className={css.serviceType}>
+                      <input
+                        className="a11yHidden"
+                        type="checkbox"
+                        name=""
+                        id="hoteling"
+                      />
+                      <label htmlFor="hoteling">호텔링</label>
+                    </div>
+                    <div className={css.serviceType}>
+                      <input
+                        className="a11yHidden"
+                        type="checkbox"
+                        name=""
+                        id="playRoom"
+                      />
+                      <label htmlFor="playRoom">놀이방</label>
+                    </div>
+                    <div className={css.serviceType}>
+                      <input
+                        className="a11yHidden"
+                        type="checkbox"
+                        name=""
+                        id="both"
+                      />
+                      <label htmlFor="both">호텔링 + 놀이방</label>
+                    </div>
                   </div>
-                  <div>
-                    <input
-                      className="a11yHidden"
-                      type="checkbox"
-                      name=""
-                      id="playRoom"
-                    />
-                    <label htmlFor="playRoom">놀이방</label>
-                  </div>
-                  <div>
-                    <input
-                      className="a11yHidden"
-                      type="checkbox"
-                      name=""
-                      id="both"
-                    />
-                    <label htmlFor="both">호텔링 + 놀이방</label>
-                  </div></fieldset>
+                </fieldset>
 
                 <fieldset className={classNames(css.fieldset, "flex", "items-center")}>
                   <label
@@ -235,12 +238,7 @@ export default function Home() {
           <span className="a11yHidden">하단 막대바</span>
         </div>
         <div className={css.dogImg}>
-          <Image
-            src={"/imgs/daengdaenge.png"}
-            width={500}
-            height={500}
-            alt="강아지이미지"
-          />
+          <Image src={"/imgs/daengdaenge.png"} width={500} height={500} alt="강아지이미지"/>
         </div>
       </div>
     </>

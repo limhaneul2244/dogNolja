@@ -1,5 +1,11 @@
 
 $img-path: '../../public/imgs/';
+//기본 breakPoint (1920, 768, 375)
+$max-xl: 1280px;
+$max-lg: 1024px;
+$max-md: 768px;
+$max-sm: 640px;
+$max-ssm: 375px;
 
 //size
 @mixin size ($w, $h) {
