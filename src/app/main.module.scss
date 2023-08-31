@@ -7,13 +7,13 @@
 }
 .mainWrap {
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
   background: #f9f9f9;
 }
 .main {
   z-index: 10;
   //left(259px)
-  @include positionLocation(absolute, 0, null, null, 13.4895833vw);
+  @include positionLocation(absolute, 0, null, null, 8.4895833vw);
   max-width: 900px;
 }
 
@@ -27,6 +27,12 @@
     padding: 5px 10px;
   }
 }
+// .playerWrapper {
+//   width: 100%;
+//   height: 100%;
+//   object-fit: cover;
+//   border: 3px solid red;
+// }
 
 //==========================
 //introBody
@@ -75,7 +81,7 @@
   margin-bottom: 40px;
   box-sizing: border-box;
   .fieldset {
-    margin-bottom: 51px;
+    margin-bottom: 40px;
     &:last-child {
       margin-bottom: 0;
     }
@@ -135,6 +141,7 @@
 //==========================
 
 .bottomBar {
+  z-index: 1;
   @include positionLocation(absolute, null, null, 0, 0);
   @include size(100%, 166px);
   background: linear-gradient(180deg, #ffe587 0%, var(--mainColor) 18.45%);
@@ -162,10 +169,11 @@
 //1280px
 @media (max-width: $max-xl) {
   .main {
+    position:inherit;
     max-width: 100%;
     width: 100%;
     left: 0;
-    padding: 0 15px;
+    padding: 0 15px 20px;
   }
 
   .dogImg {
@@ -232,6 +240,7 @@
   .serviceWrap {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
     div {
       margin-bottom: 20px;
     }
@@ -242,4 +251,9 @@
 }
 
 //375px
-@media (max-width: $max-ssm) {}
+@media (max-width: $max-ssm) {
+  .searchBtn {
+    padding: 15px 50px;
+    font-size: 14px;
+  }
+}

@@ -1,8 +1,9 @@
 "use client";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import classNames from "classnames";
 import css from "./main.module.scss";
+import ReactPlayer from 'react-player';
 
 //mui
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -72,6 +73,7 @@ function BasicDatePicker({
           className={css.datePicker}
           label={labelEnd}
           defaultValue={dayValue}
+          minDate = {dayValue}
           onChange={(dayValue) => setDayEndValue(dayValue)}
         />
       </LocalizationProvider>
@@ -93,7 +95,7 @@ function TimeDatePicker({ timeValue, timeLabelStart, setTimeValue }: TimePickerP
     <ThemeProvider theme={theme}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <TimePicker
-          className={css.datePicker}
+          className={classNames(css.datePicker, css.timeScroll)}
           label={timeLabelStart}
           defaultValue={timeValue}
         />
@@ -101,6 +103,26 @@ function TimeDatePicker({ timeValue, timeLabelStart, setTimeValue }: TimePickerP
     </ThemeProvider>
   );
 }
+
+/**
+ * reactPlayer시도중
+ */
+/*
+function VideoPlayer() {
+  return (
+    <ReactPlayer
+      url={'imgs/videos/backgroundVideo.mp4'}
+      width={'100%'}
+      height={'100%'}
+      playing={true}
+      muted={true}
+      controls={false}
+      loop={true}
+      className = {css.videoWrap}
+    />
+  )
+}
+*/
 
 export default function Home() {
   const [dayValue, setDayValue] = useState<Dayjs | null>(null);
@@ -233,6 +255,10 @@ export default function Home() {
             </button>
           </article>
         </main>
+
+        {/* <div className={css.playerWrapper}>
+          <VideoPlayer/>
+        </div> */}
 
         <div className={css.bottomBar}>
           <span className="a11yHidden">하단 막대바</span>
