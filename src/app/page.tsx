@@ -4,6 +4,7 @@ import Image from "next/image";
 import classNames from "classnames";
 import css from "./main.module.scss";
 import ReactPlayer from 'react-player';
+import dynamic from 'next/dynamic';
 
 //mui
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -65,7 +66,7 @@ function BasicDatePicker({
           format="YYYY/MM/DD"
           className={css.datePicker}
           label={labelStart}
-          // defaultValue={dayValue}
+          defaultValue={dayValue}
           minDate = {dayValue}
         />
         <DatePicker
@@ -107,10 +108,13 @@ function TimeDatePicker({ timeValue, timeLabelStart, setTimeValue }: TimePickerP
 /**
  * reactPlayer시도중
  */
-/*
+const DynamicReactPlayer = dynamic(
+  () => import('react-player'),
+  { ssr: false }
+);
 function VideoPlayer() {
   return (
-    <ReactPlayer
+    <DynamicReactPlayer
       url={'imgs/videos/backgroundVideo.mp4'}
       width={'100%'}
       height={'100%'}
@@ -122,7 +126,7 @@ function VideoPlayer() {
     />
   )
 }
-*/
+
 
 export default function Home() {
   const [dayValue, setDayValue] = useState<Dayjs | null>(null);
@@ -190,7 +194,7 @@ export default function Home() {
                     setDayValue={setDayValue}
                   />
                   <TimeDatePicker
-                    timeValue={timeValue}
+                    timeValue= {timeValue}
                     timeLabelStart={"예약시간"}
                     setTimeValue={setTimeValue}
                   />
@@ -240,7 +244,7 @@ export default function Home() {
                     몸무게
                   </label>
                   <select id="weight" name="몸무게">
-                    <option value="전체" selected>
+                    <option value="전체" defaultValue='전체'>
                       전체
                     </option>
                     <option value="1kg~5kg">1kg이상~5kg미만</option>
@@ -256,16 +260,16 @@ export default function Home() {
           </article>
         </main>
 
-        {/* <div className={css.playerWrapper}>
+        <div className={css.playerWrapper}>
           <VideoPlayer/>
-        </div> */}
+        </div>
 
-        <div className={css.bottomBar}>
+        {/* <div className={css.bottomBar}>
           <span className="a11yHidden">하단 막대바</span>
         </div>
         <div className={css.dogImg}>
           <Image src={"/imgs/daengdaenge.png"} width={500} height={500} alt="강아지이미지"/>
-        </div>
+        </div> */}
       </div>
     </>
   );

@@ -1,10 +1,8 @@
-import './globals.css'
-import './style/fonts.css'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'dogNolja',
-  description: '강아지 집사들 미용, 호텔링 예약을 한번에!🐾',
+  description: 'mypage',
 }
 
 export default function RootLayout({
